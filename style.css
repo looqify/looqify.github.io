@@ -1,0 +1,11 @@
+body {
+  max-width: 3000;
+}
+
+.jumbotron {
+  padding-top: 3rem;
+}
+
+footer {
+  padding: 0;
+}
