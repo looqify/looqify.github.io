@@ -143,7 +143,7 @@
             </div>
             <form name="kontak">
               <div class="mb-3">
-                <label for="name" class="form-label">Full Name</label>
+                <label for="name" class="form-label">Name</label>
                 <input type="text" class="form-control" id="name" aria-describedby="name" name="nama" required />
               </div>
               <div class="mb-3">
@@ -154,7 +154,11 @@
                 <label for="message" class="form-label">Message</label>
                 <textarea id="message" class="form-control" rows="3" name="pesan" required></textarea>
               </div>
-              <button type="submit" class="btn btn-primary">Send</button>
+              <button type="submit" class="btn btn-primary" id="btn1">Send</button>
+              <button class="btn btn-primary d-none" type="button" id="btn2" disabled>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Sending...
+              </button>
             </form>
           </div>
         </div>
@@ -178,12 +182,18 @@
 
       const scriptURL = 'https://script.google.com/macros/s/AKfycbzpNKAN7RGKrYIPZeDYuEnucV4_nWlXunE3ztFaWTQ3Ps5YYWJN3qMWabX4tfysx3BFcw/exec';
       const form = document.forms['kontak'];
+      const btn1 = document.querySelector('#btn1');
+      const btn2 = document.querySelector('#btn2');
 
       form.addEventListener('submit', (e) => {
         e.preventDefault();
+        btn1.classList.toggle('d-none');
+        btn2.classList.toggle('d-none');
         fetch(scriptURL, { method: 'POST', body: new FormData(form) })
           .then((response) => {
             console.log('Success!', response);
+            btn1.classList.toggle('d-none');
+            btn2.classList.toggle('d-none');
             document.querySelector('#my-alert').classList.toggle('d-none');
             form.reset();
           })
